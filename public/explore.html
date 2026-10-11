@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Monuments & Heritage Dashboard — Virasat</title>
+  <meta name="description" content="Search and browse India's iconic monuments, historical places, architectural heritage, and legendary rulers in interactive 3D.">
+  
+  <!-- Google Fonts: Royal Heritage Serif + Modern Readable Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Heritage Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       NAVIGATION BAR
+       ========================================================================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-link" title="Return to Virasat Welcome Screen">
+        <div class="brand-emblem">V</div>
+        <div>
+          <div class="brand-title">VIRASAT</div>
+          <div class="brand-tagline">Heritage in 3D</div>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore.html" class="nav-link active">Explore Monuments</a></li>
+          <li><a href="figures.html" class="nav-link">Historical Figures</a></li>
+          <li><a href="#categories-section" class="nav-link">Categories</a></li>
+          <li><a href="about.html" class="nav-link">About Virasat</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       DASHBOARD HERO & SEARCH SECTION
+       ========================================================================= -->
+  <section class="explore-hero">
+    <div class="container explore-hero-content">
+      <span class="hero-badge">🏛️ Interactive Indian Heritage Dashboard</span>
+      <h1 class="explore-hero-title">Discover India's Heritage</h1>
+      <p class="explore-hero-subtitle">
+        Explore ancient civilizations, magnificent monuments, legendary rulers, and the stories that shaped India.
+      </p>
+
+      <!-- Main Search Bar -->
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input 
+            type="text" 
+            id="monument-search-input" 
+            class="search-input" 
+            placeholder="Search monuments, historical figures, or places..."
+            autocomplete="off"
+            aria-label="Search monuments"
+          />
+          <button id="search-clear-btn" class="search-clear" title="Clear search" style="display: none;" type="button">✕</button>
+          <button id="camera-search-btn" class="camera-search-btn" title="Search by photo" aria-label="Search by photo" type="button">
+            📷
+          </button>
+        </div>
+        <div class="search-hints">
+          <span>Try searching:</span>
+          <button class="hint-pill" onclick="applySearchTag('Taj Mahal')">Taj Mahal</button>
+          <button class="hint-pill" onclick="applySearchTag('Ram Mandir')">Ram Mandir</button>
+          <button class="hint-pill" onclick="applySearchTag('Red Fort')">Red Fort</button>
+          <button class="hint-pill" onclick="applySearchTag('Shah Jahan')">Shah Jahan</button>
+          <button class="hint-pill" onclick="applySearchTag('Ashoka')">Ashoka</button>
+          <button class="hint-pill" onclick="applySearchTag('UNESCO')">UNESCO</button>
+          <button class="hint-pill hint-pill-camera" onclick="openVisualSearchModal()">📷 Search by Photo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FILTER CONTROLS BAR (Categories, States & UNESCO)
+       ========================================================================= -->
+  <section class="filters-bar-section">
+    <div class="container">
+      <div class="filters-wrapper">
+        
+        <!-- Category Chips Scrollable Row -->
+        <div class="category-chips-row" id="category-chips-container">
+          <button class="chip active" data-category="all">All Monuments</button>
+          <button class="chip" data-category="Forts & Palaces">🏰 Forts & Palaces</button>
+          <button class="chip" data-category="Temples & Religious Architecture">🛕 Temples & Sacred</button>
+          <button class="chip" data-category="Tombs & Mausoleums">🕌 Tombs & Mausoleums</button>
+          <button class="chip" data-category="Ancient Caves">⛰️ Ancient Caves</button>
+          <button class="chip" data-category="Archaeological Sites">🏺 Archaeological Sites</button>
+          <button class="chip" data-category="Stupas & Buddhist Heritage">☸️ Stupas & Buddhist</button>
+          <button class="chip" data-category="Memorials & Modern Heritage">🎖️ Memorials & Modern</button>
+          <button class="chip" data-unesco="true">⭐ UNESCO World Heritage</button>
+        </div>
+
+        <!-- Secondary Filters Row: State Selector + Reset -->
+        <div class="filters-secondary-row">
+          <div class="filter-group">
+            <label for="state-filter-select" class="filter-label">Filter by Region / State:</label>
+            <select id="state-filter-select" class="filter-select">
+              <option value="all">All States & Territories</option>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <button id="btn-reset-filters" class="btn-reset" title="Reset all search filters">
+            ↺ Reset Filters
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MONUMENT CATALOGUE GRID (Populated dynamically via fetch('/api/monuments'))
+       ========================================================================= -->
+  <main class="section-block" style="padding-top: 30px;">
+    <div class="container">
+      
+      <!-- Results Meta Header -->
+      <div class="results-meta-header">
+        <div>
+          <h2 class="results-heading" id="results-heading">Monuments Catalogue</h2>
+          <p class="results-count" id="results-count-text">Loading catalog...</p>
+        </div>
+
+        <!-- 3D Models Only Toggle -->
+        <div class="models-toggle-wrapper">
+          <label class="toggle-switch-label">
+            <input type="checkbox" id="toggle-models-only" />
+            <span class="toggle-text">Show 3D Models Only</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Visual Search Active Results Banner -->
+      <div id="visual-results-banner" class="visual-results-banner" style="display: none;">
+        <div class="visual-banner-content">
+          <div class="visual-banner-info">
+            <span class="hero-badge" style="background: rgba(197, 155, 39, 0.2); color: var(--color-maroon); margin-bottom: 6px;">📷 Visual Search Mode</span>
+            <h3 class="results-heading" style="margin-top: 4px; font-size: 22px;">Monuments That May Match Your Photo</h3>
+            <p id="visual-search-summary-text" class="results-count" style="margin-top: 4px;">
+              Candidates identified through architectural feature analysis & catalogue matching.
+            </p>
+          </div>
+          <div class="visual-banner-actions">
+            <button class="btn-primary" onclick="openVisualSearchModal()" style="font-size: 12px; padding: 7px 16px;">
+              📷 Try Another Photo
+            </button>
+            <button class="btn-secondary" onclick="clearVisualSearch()" style="font-size: 12px; padding: 7px 16px;">
+              ✕ Reset to All Monuments
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Search Empty State -->
+      <div id="visual-empty-state" class="empty-state-box" style="display: none;">
+        <div style="font-size: 48px; margin-bottom: 12px;">📷</div>
+        <h3 style="font-family: var(--font-serif); color: var(--color-maroon); font-size: 20px; margin-bottom: 8px;">
+          We couldn't identify a matching monument. Try another photo or search by name.
+        </h3>
+        <p style="color: var(--color-text-muted); font-size: 14px; max-width: 520px; margin: 0 auto 20px;">
+          Your photo may have unique lighting or angles. Try choosing an architectural category, typing a clue, or selecting another photograph.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button onclick="openVisualSearchModal()" class="btn-primary" style="padding: 10px 20px; font-size: 13px;">
+            📷 Try Another Photo
+          </button>
+          <button onclick="focusTextSearch()" class="btn-secondary" style="padding: 10px 20px; font-size: 13px;">
+            🔍 Search by Name
+          </button>
+          <button onclick="resetAllFilters()" class="btn-secondary" style="padding: 10px 20px; font-size: 13px;">
+            🏛️ Browse All Monuments
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div id="monuments-loading" class="loading-state-box">
+        <div class="spinner"></div>
+        <p class="loading-label">Fetching historical monument catalog from Virasat server...</p>
+      </div>
+
+      <!-- Error State -->
+      <div id="monuments-error" style="display: none;" class="info-card"></div>
+
+      <!-- Empty No Results State -->
+      <div id="monuments-empty" class="empty-state-box" style="display: none;">
+        <div style="font-size: 48px; margin-bottom: 12px;">🔍</div>
+        <h3 style="font-family: var(--font-serif); color: var(--color-maroon); font-size: 20px; margin-bottom: 8px;">
+          No monuments match your search criteria
+        </h3>
+        <p style="color: var(--color-text-muted); font-size: 14px; max-width: 480px; margin: 0 auto 20px;">
+          Try searching for another keyword like <em>"Taj Mahal"</em>, <em>"Delhi"</em>, <em>"Mughal"</em>, or reset your category and state filters.
+        </p>
+        <button onclick="resetAllFilters()" class="btn-primary" style="padding: 10px 24px; font-size: 13px;">
+          Clear Search & Show All
+        </button>
+      </div>
+
+      <!-- Monuments Cards Grid -->
+      <div class="monuments-grid" id="monuments-container">
+        <!-- Rendered by public/js/explore.js -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       HERITAGE CATEGORIES SECTION
+       ========================================================================= -->
+  <section class="section-block categories-browse-section" id="categories-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Curated Collections</span>
+        <h2 class="section-title">Explore by Heritage Category</h2>
+        <p class="section-desc">
+          Browse through distinct architectural movements, from ancient rock excavations to imperial fortresses.
+        </p>
+      </div>
+
+      <div class="categories-showcase-grid">
+        <div class="cat-card" onclick="filterByCategory('Forts & Palaces')">
+          <div class="cat-icon">🏰</div>
+          <h3 class="cat-title">Forts & Palaces</h3>
+          <p class="cat-desc">Imperial fortresses, royal apartments, and defensive bastions of Mughal and Rajput dynasties.</p>
+          <span class="cat-explore-link">Explore Forts →</span>
+        </div>
+
+        <div class="cat-card" onclick="filterByCategory('Temples & Religious Architecture')">
+          <div class="cat-icon">🛕</div>
+          <h3 class="cat-title">Temples & Sacred Spaces</h3>
+          <p class="cat-desc">Nagara, Dravidian, and Kalinga stone sanctuaries embodying ancient spiritual engineering.</p>
+          <span class="cat-explore-link">Explore Temples →</span>
+        </div>
+
+        <div class="cat-card" onclick="filterByCategory('Tombs & Mausoleums')">
+          <div class="cat-icon">🕌</div>
+          <h3 class="cat-title">Tombs & Mausoleums</h3>
+          <p class="cat-desc">Mughal garden-tombs, marble domes, and geometric Charbagh symmetrical paradises.</p>
+          <span class="cat-explore-link">Explore Mausoleums →</span>
+        </div>
+
+        <div class="cat-card" onclick="filterByCategory('Ancient Caves')">
+          <div class="cat-icon">⛰️</div>
+          <h3 class="cat-title">Ancient Caves</h3>
+          <p class="cat-desc">Monolithic rock-cut sanctuaries and tempera wall murals carved into volcanic basalt cliffs.</p>
+          <span class="cat-explore-link">Explore Caves →</span>
+        </div>
+
+        <div class="cat-card" onclick="filterByCategory('Stupas & Buddhist Heritage')">
+          <div class="cat-icon">☸️</div>
+          <h3 class="cat-title">Stupas & Buddhist Heritage</h3>
+          <p class="cat-desc">Ancient Mauryan relic mounds, Torana gateways, and Ashokan edicts in Brahmi script.</p>
+          <span class="cat-explore-link">Explore Stupas →</span>
+        </div>
+
+        <div class="cat-card" onclick="filterByCategory('Memorials & Modern Heritage')">
+          <div class="cat-icon">🎖️</div>
+          <h3 class="cat-title">Memorials & Modern Heritage</h3>
+          <p class="cat-desc">Colonial neoclassical architecture, freedom struggle memorials, and railway marvels.</p>
+          <span class="cat-explore-link">Explore Memorials →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       HISTORICAL FIGURES PROMO BANNER
+       ========================================================================= -->
+  <section class="section-block" style="background: linear-gradient(180deg, #2D0A0E 0%, #1A0507 100%); color: #FFFDF9; border-top: 1px solid var(--color-border-gold); border-bottom: 1px solid var(--color-border-gold);">
+    <div class="container" style="text-align: center; max-width: 820px;">
+      <span class="hero-badge" style="background-color: rgba(212, 175, 55, 0.2);">👑 Empires & Luminaries</span>
+      <h2 style="font-size: 32px; color: #FFFDF9; margin: 12px 0 14px;">Explore India's Historical Figures</h2>
+      <p style="color: #E6D8CA; font-size: 15px; margin-bottom: 28px; line-height: 1.7;">
+        Discover the emperors, queens, philosophers, and architects who shaped India's destiny — 
+        from Emperor Ashoka and Shah Jahan to Rani Lakshmibai and Chhatrapati Shivaji Maharaj.
+      </p>
+      <a href="figures.html" class="btn-primary" style="padding: 14px 34px;">
+        <span>Meet Historical Figures</span>
+        <span>→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <div class="brand-emblem" style="width: 28px; height: 28px; font-size: 14px;">V</div>
+            <h4 style="margin: 0; color: #FFFDF9; font-size: 18px;">VIRASAT</h4>
+          </div>
+          <p>
+            An interactive 3D digital discovery platform preserving and celebrating India's architectural marvels. 
+            An educational initiative for students, researchers, and cultural travelers.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Welcome Screen</a></li>
+            <li><a href="explore.html">Monuments Catalog</a></li>
+            <li><a href="figures.html">Historical Figures</a></li>
+            <li><a href="about.html">About Virasat</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Key 3D Reconstructions</h4>
+          <ul>
+            <li><a href="monument.html?id=taj-mahal">Taj Mahal 3D (Agra)</a></li>
+            <li><a href="monument.html?id=ram-mandir">Ram Mandir 3D (Ayodhya)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Virasat — Indian Heritage in 3D • Created for College Viva & Hackathon Presentation</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       VISUAL SEARCH MODAL / DIALOG
+       ========================================================================= -->
+  <div id="visual-search-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="visual-modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">📷</span>
+          <div>
+            <h3 id="visual-modal-title" class="modal-title">Visual Search — Search by Photo</h3>
+            <p class="modal-subtitle">Discover & identify monuments using your camera or photo gallery</p>
+          </div>
+        </div>
+        <button id="modal-close-btn" class="modal-close-btn" aria-label="Close visual search modal" title="Close" type="button">✕</button>
+      </div>
+
+      <!-- Tab Navigation: Live Camera vs Upload -->
+      <div class="modal-tabs">
+        <button id="tab-camera" class="modal-tab active" type="button">
+          📸 Take a Photo
+        </button>
+        <button id="tab-upload" class="modal-tab" type="button">
+          📁 Upload Image
+        </button>
+      </div>
+
+      <!-- Tab Content 1: Live Camera -->
+      <div id="pane-camera" class="modal-pane active">
+        <!-- Live Camera Viewfinder -->
+        <div id="camera-viewfinder" class="camera-viewfinder-box">
+          <video id="camera-video" autoplay playsinline muted></video>
+          <div id="camera-prompt" class="camera-prompt-overlay">
+            <span style="font-size: 38px; margin-bottom: 8px;">📷</span>
+            <p style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">Capture Monument Photo</p>
+            <span class="camera-note" style="max-width: 380px; text-align: center; margin-bottom: 12px; font-size: 12px; opacity: 0.85;">
+              Uses device camera with <code>facingMode: environment</code> (rear-facing). Requires camera permission on HTTPS or localhost. Photos are processed in-memory and never stored.
+            </span>
+            <button id="btn-start-camera" class="btn-primary" type="button" style="padding: 10px 22px; font-size: 13px;">
+              Activate Camera
+            </button>
+          </div>
+          <!-- Camera Error / Permission Denied Message -->
+          <div id="camera-error" class="camera-error-overlay" style="display: none;">
+            <span style="font-size: 32px; margin-bottom: 8px;">🚫</span>
+            <h4 id="camera-error-title" style="color: #F87171; margin-bottom: 6px; font-size: 16px;">Camera Access Denied or Unavailable</h4>
+            <p id="camera-error-msg" style="font-size: 13px; color: #E5E7EB; max-width: 380px; text-align: center; margin-bottom: 14px;">
+              Camera permission was blocked. You can still easily select or drop a photo from your gallery using the Upload tab.
+            </p>
+            <button id="btn-switch-to-upload" class="btn-secondary" style="border-color: #F4E8C1; color: #F4E8C1; font-size: 13px; padding: 8px 18px;" type="button">
+              Switch to Image Upload →
+            </button>
+          </div>
+        </div>
+
+        <div id="camera-controls-bar" class="modal-actions-bar" style="display: none;">
+          <button id="btn-capture-photo" class="btn-primary" type="button">
+            ⚪ Capture Snapshot
+          </button>
+          <button id="btn-stop-camera" class="btn-secondary" type="button">
+            Stop Camera
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Content 2: Upload an Image -->
+      <div id="pane-upload" class="modal-pane" style="display: none;">
+        <div id="dropzone" class="upload-dropzone">
+          <input type="file" id="visual-file-input" accept="image/jpeg,image/png,image/webp" capture="environment" style="display: none;">
+          <div style="font-size: 42px; margin-bottom: 10px;">🖼️</div>
+          <h4 style="font-size: 17px; color: var(--color-maroon); margin-bottom: 6px;">Select or Drop a Monument Photo</h4>
+          <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 16px; max-width: 420px; margin-left: auto; margin-right: auto;">
+            Supports JPEG, PNG, and WebP images up to 5MB. On mobile phones, this opens your camera or gallery directly.
+          </p>
+          <button id="btn-browse-file" class="btn-primary" type="button" style="padding: 10px 24px; font-size: 14px;">
+            Choose from Device
+          </button>
+          <span style="display: block; margin-top: 12px; font-size: 11px; color: #8C7B70;">
+            🔒 Privacy First: Images are processed transiently in your browser session and never saved permanently.
+          </span>
+        </div>
+      </div>
+
+      <!-- Image Preview & Search Parameters Panel (appears once photo is captured or selected) -->
+      <div id="photo-preview-section" class="photo-preview-section" style="display: none;">
+        <div class="photo-preview-layout">
+          <div class="preview-thumbnail-wrap">
+            <img id="photo-preview-img" alt="Captured Monument Preview" src="" />
+            <button id="btn-retake-photo" class="btn-retake" title="Retake or choose another photo" type="button">
+              ↺ Choose Another Photo
+            </button>
+          </div>
+
+          <div class="photo-criteria-wrap">
+            <h4 style="font-size: 16px; color: var(--color-maroon); margin-bottom: 4px;">
+              Assisted Visual Matching Clues
+            </h4>
+            <p style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 14px;">
+              Narrow down our 20 Indian monuments by selecting an architectural category or entering a visual clue:
+            </p>
+
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label for="visual-category-select" class="form-label" style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-maroon); display: block; margin-bottom: 4px;">
+                Architectural Style / Category:
+              </label>
+              <select id="visual-category-select" class="filter-select" style="width: 100%;">
+                <option value="all">Any Architectural Category</option>
+                <option value="Tombs & Mausoleums">🕌 Tombs & Mausoleums (e.g. White marble, Charbagh)</option>
+                <option value="Temples & Religious Architecture">🛕 Temples & Sacred (e.g. Nagara, Dravidian, Shikhara)</option>
+                <option value="Forts & Palaces">🏰 Forts & Palaces (e.g. Red sandstone, Bastions)</option>
+                <option value="Ancient Caves">⛰️ Ancient Caves (e.g. Rock-cut basalt, Chaitya arches)</option>
+                <option value="Stupas & Buddhist Heritage">☸️ Stupas & Buddhist (e.g. Torana, Relic mound)</option>
+                <option value="Archaeological Sites">🏺 Archaeological Sites (e.g. Stone chariot, ruins)</option>
+                <option value="Memorials & Modern Heritage">🎖️ Memorials & Modern (e.g. Triumphal arch, Colonial)</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label for="visual-clue-input" class="form-label" style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-maroon); display: block; margin-bottom: 4px;">
+                Visual Clue (e.g. "White marble", "Ayodhya", "Dome", "Pillars"):
+              </label>
+              <input 
+                type="text" 
+                id="visual-clue-input" 
+                class="search-input" 
+                style="background: #FFFDF9; border: 1px solid var(--color-border); border-radius: 6px; padding: 8px 12px; width: 100%; font-size: 13px;" 
+                placeholder="e.g. White marble, Agra, Shikhara, Red stone..." 
+              />
+            </div>
+
+            <div id="visual-analysis-tag" class="visual-analysis-pill" style="display: none; margin-bottom: 14px;">
+              <!-- Automatically detected color/brightness profile -->
+            </div>
+
+            <button id="btn-find-monument" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 14px;" type="button">
+              🔍 Find Matching Monuments →
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Off-screen canvas for frame capture and client-side palette analysis -->
+  <canvas id="camera-canvas" style="display: none;"></canvas>
+
+  <!-- Client-side Explore Script -->
+  <script src="js/explore.js"></script>
+</body>
+</html>

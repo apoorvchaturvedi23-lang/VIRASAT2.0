@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monument Dossier & 3D Explorer — Virasat</title>
+  
+  <!-- Google Fonts: Royal Heritage Serif + Modern Readable Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom Heritage Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Official Google <model-viewer> Web Component CDN Script -->
+  <!-- Official documentation: https://modelviewer.dev/ -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+
+  <!-- =========================================================================
+       NAVIGATION BAR
+       ========================================================================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-link" title="Return to Virasat Welcome Screen">
+        <div class="brand-emblem">V</div>
+        <div>
+          <div class="brand-title">VIRASAT</div>
+          <div class="brand-tagline">Heritage in 3D</div>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore.html" class="nav-link">← Back to Explore</a></li>
+          <li><a href="figures.html" class="nav-link">Historical Figures</a></li>
+          <li><a href="about.html" class="nav-link">About Virasat</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       PAGE LOADING & ERROR STATES
+       ========================================================================= -->
+  <div id="page-loading" style="text-align: center; padding: 100px 20px;">
+    <div class="spinner" style="margin: 0 auto 20px;"></div>
+    <h3 style="font-family: var(--font-serif); color: var(--color-maroon);">Loading Monument Dossier...</h3>
+    <p style="font-size: 14px; color: var(--color-text-muted);">Fetching historical records and 3D reconstruction model from server...</p>
+  </div>
+
+  <div id="page-error" style="display: none; max-width: 600px; margin: 80px auto; padding: 30px; text-align: center;" class="info-card">
+    <h2 style="color: #991B1B; font-size: 26px; margin-bottom: 12px;">Monument Not Found (404)</h2>
+    <p id="error-message-text" style="margin-bottom: 24px; color: var(--color-text-muted);">The requested monument could not be located in the database.</p>
+    <a href="explore.html" class="btn-primary">Return to Monuments Catalog</a>
+  </div>
+
+  <!-- =========================================================================
+       MAIN MONUMENT CONTENT CONTAINER (Populated dynamically by monument.js)
+       ========================================================================= -->
+  <main id="monument-content" style="display: none;">
+
+    <!-- Monument Header Banner -->
+    <section class="details-header">
+      <div class="container">
+        <a href="explore.html" class="back-link">← Return to Explore Monuments</a>
+        
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 8px;">
+          <span class="hero-badge" id="monument-category-badge" style="margin: 0;">Category</span>
+          <span id="unesco-pill" class="unesco-star-badge" style="display: none;">⭐ UNESCO World Heritage</span>
+        </div>
+
+        <h1 class="monument-page-title" id="monument-title">Monument Name</h1>
+        
+        <div class="monument-meta">
+          <span>📍 <strong id="meta-location">Location</strong></span>
+          <span>⏳ <strong id="meta-timeline">Timeline</strong></span>
+          <span>👑 <strong id="meta-commissioned">Patron / Dynasty</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- =====================================================================
+           SECTION A: 3D MODEL VIEWER CONTAINER (Rendered if hasModel = true)
+           ===================================================================== -->
+      <section class="viewer-wrapper" id="section-3d-viewer" style="display: none;" aria-label="3D Monument Model Explorer">
+        
+        <!-- Viewer Top Control Bar -->
+        <div class="viewer-header-bar">
+          <div class="viewer-header-title">
+            <span>🏛️</span>
+            <span>INTERACTIVE 3D DIGITAL TWIN</span>
+          </div>
+
+          <!-- Controls: Reset View, Auto-Rotate, Zoom -->
+          <div class="viewer-controls-top">
+            <button class="viewer-btn" id="btn-zoom-in" title="Zoom In">
+              <span>🔍 +</span>
+            </button>
+            <button class="viewer-btn" id="btn-zoom-out" title="Zoom Out">
+              <span>🔍 -</span>
+            </button>
+            <button class="viewer-btn" id="btn-reset-view" title="Reset Camera to Center">
+              <span>↺</span>
+              <span>Reset View</span>
+            </button>
+            <button class="viewer-btn active" id="btn-toggle-rotate" title="Toggle Turntable Rotation">
+              <span>🔄</span>
+              <span>Auto-Rotate: ON</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Relative Container for <model-viewer> and Overlays -->
+        <div style="position: relative; width: 100%;">
+          
+          <!-- Loading Overlay -->
+          <div class="model-loading-overlay" id="model-loading">
+            <div class="spinner"></div>
+            <div class="loading-text">Downloading & Rendering 3D GLB Model...</div>
+          </div>
+
+          <!-- Error Fallback Overlay -->
+          <div class="model-error-overlay" id="model-error">
+            <div style="font-size: 36px;">⚠️</div>
+            <h3 class="error-title">Could Not Load 3D Asset</h3>
+            <p class="error-desc">
+              The 3D model file at <code id="error-model-path" style="color: var(--color-gold);"></code> 
+              could not be loaded. Please ensure the file is placed inside the <code>public/models/</code> folder.
+            </p>
+            <button class="btn-primary" id="btn-retry-model" style="padding: 8px 20px; font-size: 13px;">
+              Retry Loading 3D Model
+            </button>
+          </div>
+
+          <!-- The Official Google <model-viewer> Web Component -->
+          <model-viewer
+            id="heritage-model-viewer"
+            src=""
+            alt="3D historical reconstruction of the monument"
+            camera-controls
+            touch-action="pan-y"
+            auto-rotate
+            rotation-per-second="18deg"
+            camera-orbit="45deg 75deg 18m"
+            field-of-view="32deg"
+            min-camera-orbit="auto auto 6m"
+            max-camera-orbit="auto auto 32m"
+            shadow-intensity="1.5"
+            shadow-softness="0.8"
+            exposure="1.0"
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+          >
+          </model-viewer>
+
+        </div>
+
+        <!-- Instructions Banner Below Viewer -->
+        <div class="instructions-banner">
+          ✨ <strong>Interaction Guide:</strong> Drag mouse or swipe to rotate 360° • Scroll or pinch to zoom in & out • Click <strong>Reset View</strong> to center
+        </div>
+
+      </section>
+
+      <!-- =====================================================================
+           SECTION B: HONEST "3D MODEL IN PROGRESS" BANNER (If hasModel = false)
+           ===================================================================== -->
+      <section class="model-coming-soon-banner" id="section-3d-placeholder" style="display: none;">
+        <div class="coming-soon-card">
+          <div class="coming-soon-icon-box">
+            <span style="font-size: 36px;">⏳</span>
+          </div>
+          <div class="coming-soon-content">
+            <h3 class="coming-soon-title">3D Digital Twin Under Photogrammetry Reconstruction</h3>
+            <p class="coming-soon-desc">
+              Complete historical research, architectural features, and verified photography are available below. 
+              Interactive 3D GLB reconstruction for this monument is currently being curated. 
+              To experience working 3D reconstructions right now, explore the 
+              <a href="monument.html?id=taj-mahal" style="color: var(--color-gold); font-weight: bold; text-decoration: underline;">Taj Mahal</a> or 
+              <a href="monument.html?id=ram-mandir" style="color: var(--color-gold); font-weight: bold; text-decoration: underline;">Shri Ram Mandir</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           MONUMENT PHOTOGRAPHY PREVIEW (If no 3D model, or secondary display)
+           ===================================================================== -->
+      <section class="monument-hero-photo-wrapper" id="monument-photo-wrapper" style="margin-bottom: 30px;">
+        <div class="monument-photo-card">
+          <img id="monument-hero-image" src="" alt="" class="monument-hero-img" />
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           HISTORICAL & ARCHITECTURAL INFORMATION SECTIONS
+           ===================================================================== -->
+      <div class="info-grid">
+        
+        <!-- Left Column: Detailed History, Architecture & Significance -->
+        <div class="main-info-col">
+          
+          <!-- Section 1: Overview & Historical Background -->
+          <article class="info-card">
+            <h2 class="info-card-title">
+              <span>📜</span>
+              <span>Historical Background & Origins</span>
+            </h2>
+            <p id="historical-background" style="line-height: 1.8; font-size: 15px;"></p>
+          </article>
+
+          <!-- Section 2: Explore the Architecture -->
+          <article class="info-card">
+            <h2 class="info-card-title">
+              <span>🏛️</span>
+              <span>Architecture & Structural Design</span>
+            </h2>
+
+            <div class="arch-meta-box">
+              <p style="margin-bottom: 8px;"><strong>Architectural Tradition:</strong> <span id="arch-style" style="color: var(--color-maroon); font-weight: 600;"></span></p>
+              <p style="margin-bottom: 0;"><strong>Principal Materials:</strong> <span id="arch-materials" style="color: var(--color-sandstone); font-weight: 600;"></span></p>
+            </div>
+
+            <p id="arch-overview" style="margin-bottom: 22px; line-height: 1.8;"></p>
+
+            <h3 style="font-size: 17px; margin-bottom: 14px; color: var(--color-maroon);">Key Architectural Features:</h3>
+            <div id="arch-features-list">
+              <!-- Dynamically populated -->
+            </div>
+          </article>
+
+          <!-- Section 3: Cultural & Historical Significance -->
+          <article class="info-card">
+            <h2 class="info-card-title">
+              <span>🌟</span>
+              <span>Cultural & Civilizational Significance</span>
+            </h2>
+            <p id="cultural-significance" style="line-height: 1.8; font-size: 15px;"></p>
+          </article>
+
+          <!-- Section 4: Associated Historical Figures -->
+          <article class="info-card" id="associated-figures-card" style="display: none;">
+            <h2 class="info-card-title">
+              <span>👑</span>
+              <span>Associated Historical Figures</span>
+            </h2>
+            <p style="font-size: 14px; color: var(--color-text-muted); margin-bottom: 16px;">
+              Prominent historical rulers, monarchs, or architects historically connected to this monument:
+            </p>
+            <div class="associated-figures-grid" id="associated-figures-container">
+              <!-- Dynamically populated -->
+            </div>
+          </article>
+
+          <!-- Section 5: Interesting Historical Facts -->
+          <article class="info-card">
+            <h2 class="info-card-title">
+              <span>💡</span>
+              <span>Interesting Historical Facts</span>
+            </h2>
+            <ul class="facts-list" id="facts-list">
+              <!-- Dynamically populated -->
+            </ul>
+          </article>
+
+          <!-- Section 6: Sources & Further Reading -->
+          <article class="info-card">
+            <h2 class="info-card-title">
+              <span>📚</span>
+              <span>Sources & Further Reading</span>
+            </h2>
+            <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 12px;">
+              Information curated from official archaeological survey records and heritage institutions:
+            </p>
+            <ul class="sources-links-list" id="sources-list">
+              <!-- Dynamically populated -->
+            </ul>
+          </article>
+
+        </div>
+
+        <!-- Right Column: Sidebar Quick Summary Box -->
+        <aside class="sidebar-col">
+          <div class="sidebar-box">
+            <h3 class="sidebar-title">Monument Dossier</h3>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Official Name</span>
+              <span class="sidebar-val" id="sidebar-name"></span>
+            </div>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Location / State</span>
+              <span class="sidebar-val" id="sidebar-location"></span>
+            </div>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Category</span>
+              <span class="sidebar-val" id="sidebar-category"></span>
+            </div>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Timeline / Built</span>
+              <span class="sidebar-val" id="sidebar-timeline"></span>
+            </div>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Architectural Style</span>
+              <span class="sidebar-val" id="sidebar-style"></span>
+            </div>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">3D Reconstruction Status</span>
+              <span class="sidebar-val" id="sidebar-3d-status" style="color: var(--color-gold); font-size: 13px;"></span>
+            </div>
+
+            <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 10px;">
+              <a href="explore.html" class="btn-secondary" style="width: 100%; justify-content: center;">
+                ← Browse All Monuments
+              </a>
+              <a href="figures.html" class="btn-secondary" style="width: 100%; justify-content: center; background-color: #F4E8C1; border-color: var(--color-gold); color: #1A0507;">
+                👑 Meet Historical Figures
+              </a>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Virasat — Indian Heritage in 3D • Curated for Academic Evaluation & College Viva</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Client-side Monument Details Script -->
+  <script src="js/monument.js"></script>
+</body>
+</html>

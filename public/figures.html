@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historical Figures of India — Virasat</title>
+  <meta name="description" content="Discover the legendary emperors, architects, spiritual masters, and freedom leaders who built India's greatest monuments.">
+  
+  <!-- Google Fonts: Royal Heritage Serif + Modern Readable Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Heritage Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       NAVIGATION BAR
+       ========================================================================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-link" title="Return to Virasat Welcome Screen">
+        <div class="brand-emblem">V</div>
+        <div>
+          <div class="brand-title">VIRASAT</div>
+          <div class="brand-tagline">Heritage in 3D</div>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore.html" class="nav-link">Explore Monuments</a></li>
+          <li><a href="figures.html" class="nav-link active">Historical Figures</a></li>
+          <li><a href="explore.html#categories-section" class="nav-link">Categories</a></li>
+          <li><a href="about.html" class="nav-link">About Virasat</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO & SEARCH SECTION
+       ========================================================================= -->
+  <section class="explore-hero">
+    <div class="container explore-hero-content">
+      <span class="hero-badge">👑 The Architects of Indian History</span>
+      <h1 class="explore-hero-title">Historical Figures & Rulers</h1>
+      <p class="explore-hero-subtitle">
+        Explore the visionary rulers, brilliant builders, spiritual masters, and courageous leaders whose legacies shaped the timeless heritage of Bharat.
+      </p>
+
+      <!-- Figures Search Bar -->
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input 
+            type="text" 
+            id="figures-search-input" 
+            class="search-input" 
+            placeholder="Search figures by name, era, dynasty, or associated monument..."
+            autocomplete="off"
+            aria-label="Search historical figures"
+          />
+          <button id="figures-clear-btn" class="search-clear" title="Clear search" style="display: none;">✕</button>
+        </div>
+        <div class="search-hints">
+          <span>Popular searches:</span>
+          <button class="hint-pill" onclick="searchFigureTag('Shah Jahan')">Shah Jahan</button>
+          <button class="hint-pill" onclick="searchFigureTag('Ashoka')">Ashoka</button>
+          <button class="hint-pill" onclick="searchFigureTag('Shivaji')">Chhatrapati Shivaji</button>
+          <button class="hint-pill" onclick="searchFigureTag('Buddha')">Gautama Buddha</button>
+          <button class="hint-pill" onclick="searchFigureTag('Raja Raja Chola')">Rajaraja Chola</button>
+          <button class="hint-pill" onclick="searchFigureTag('Sardar Patel')">Sardar Patel</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       HISTORICAL FIGURES CATALOGUE
+       ========================================================================= -->
+  <main class="section-block" style="padding-top: 36px;">
+    <div class="container">
+      
+      <!-- Meta Header -->
+      <div class="results-meta-header">
+        <div>
+          <h2 class="results-heading" id="figures-heading">Historical Leaders & Visionaries</h2>
+          <p class="results-count" id="figures-count-text">Loading historical profiles...</p>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div id="figures-loading" class="loading-state-box">
+        <div class="spinner"></div>
+        <p class="loading-label">Fetching historical figures from Virasat server...</p>
+      </div>
+
+      <!-- Empty State -->
+      <div id="figures-empty" class="empty-state-box" style="display: none;">
+        <div style="font-size: 48px; margin-bottom: 12px;">👤</div>
+        <h3 style="font-family: var(--font-serif); color: var(--color-maroon); font-size: 20px; margin-bottom: 8px;">
+          No historical figures found
+        </h3>
+        <p style="color: var(--color-text-muted); font-size: 14px; max-width: 480px; margin: 0 auto 20px;">
+          Try searching for another historical ruler, empire, or associated monument.
+        </p>
+        <button class="btn-secondary" onclick="resetFiguresSearch()">View All Figures</button>
+      </div>
+
+      <!-- Figures Grid -->
+      <div id="figures-grid" class="figures-grid" style="display: none;">
+        <!-- Populated dynamically via public/js/figures.js -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-link" style="margin-bottom: 16px;">
+            <div class="brand-emblem">V</div>
+            <div>
+              <div class="brand-title" style="font-size: 20px;">VIRASAT</div>
+              <div class="brand-tagline">Heritage in 3D</div>
+            </div>
+          </div>
+          <p>
+            Virasat is a searchable Indian heritage discovery platform and 3D time-travel prototype built with pure HTML5, CSS3, JavaScript, and Node.js/Express.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="explore.html">Monument Catalogue</a></li>
+            <li><a href="monument.html?id=taj-mahal">Taj Mahal in 3D</a></li>
+            <li><a href="monument.html?id=ram-mandir">Ram Mandir in 3D</a></li>
+            <li><a href="figures.html">Historical Figures</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Virasat Project</h4>
+          <ul>
+            <li><a href="about.html">About & Academic Goals</a></li>
+            <li><a href="about.html#viva-guide">Viva Defense Guide</a></li>
+            <li><a href="about.html#architecture">System Architecture</a></li>
+            <li><a href="index.html">Welcome Page</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Virasat Heritage Project — 1st Year B.Tech Computer Science Prototype. Educational & Cultural Preservation.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page Logic Script -->
+  <script src="js/figures.js"></script>
+</body>
+</html>

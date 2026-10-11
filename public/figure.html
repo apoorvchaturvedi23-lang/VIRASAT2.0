@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historical Figure Dossier — Virasat</title>
+  <meta name="description" content="Explore the life, reign, architecture, and enduring legacy of India's iconic historical figures.">
+  
+  <!-- Google Fonts: Royal Heritage Serif + Modern Readable Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Heritage Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       NAVIGATION BAR
+       ========================================================================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-link" title="Return to Virasat Welcome Screen">
+        <div class="brand-emblem">V</div>
+        <div>
+          <div class="brand-title">VIRASAT</div>
+          <div class="brand-tagline">Heritage in 3D</div>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore.html" class="nav-link">Explore Monuments</a></li>
+          <li><a href="figures.html" class="nav-link active">Historical Figures</a></li>
+          <li><a href="explore.html#categories-section" class="nav-link">Categories</a></li>
+          <li><a href="about.html" class="nav-link">About Virasat</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       FIGURE HEADER HERO
+       ========================================================================= -->
+  <section class="details-header">
+    <div class="container">
+      <a href="figures.html" class="back-link">
+        ← Back to Historical Figures
+      </a>
+      
+      <div id="figure-header-content">
+        <span class="hero-badge" id="fig-era-badge">Historical Profile</span>
+        <h1 class="monument-page-title" id="fig-name">Loading Historical Dossier...</h1>
+        <div class="monument-meta">
+          <span id="fig-title">👑 Loading title...</span>
+          <span id="fig-reign">⏳ Loading era...</span>
+          <span id="fig-dynasty">🏛️ Loading dynasty...</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MAIN CONTENT CONTAINER
+       ========================================================================= -->
+  <main class="container" style="padding-top: 40px; padding-bottom: 60px;">
+    
+    <!-- Loading State -->
+    <div id="figure-loading" class="loading-state-box">
+      <div class="spinner"></div>
+      <p class="loading-label">Loading historical records and architectural connections from Virasat server...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="figure-error" class="info-card" style="display: none; text-align: center; max-width: 650px; margin: 40px auto;">
+      <h3 style="color: var(--color-maroon); font-size: 22px; margin-bottom: 12px;">Figure Not Found</h3>
+      <p style="color: var(--color-text-muted); margin-bottom: 24px;">
+        We could not locate this historical figure in the Virasat database.
+      </p>
+      <a href="figures.html" class="btn-primary">Browse All Historical Figures</a>
+    </div>
+
+    <!-- Loaded Figure Profile -->
+    <div id="figure-profile" style="display: none;">
+      
+      <div class="info-grid">
+        
+        <!-- Left / Main Column: Biography, Milestones, and Monuments -->
+        <div>
+          <!-- Detailed Biography -->
+          <article class="info-card">
+            <h2 class="info-card-title">📜 Historical Biography</h2>
+            <div id="fig-biography" style="line-height: 1.8; color: var(--color-text-muted);">
+              <!-- Populated dynamically -->
+            </div>
+          </article>
+
+          <!-- Major Achievements & Contributions -->
+          <article class="info-card">
+            <h2 class="info-card-title">🏆 Major Achievements & Architectural Legacy</h2>
+            <div id="fig-achievements">
+              <!-- Populated dynamically -->
+            </div>
+          </article>
+
+          <!-- Associated Monuments (with cards linking to 3D/monument page) -->
+          <article class="info-card">
+            <h2 class="info-card-title">🏛️ Associated Monuments & Structures</h2>
+            <p style="margin-bottom: 20px; font-size: 14px; color: var(--color-text-muted);">
+              Monuments commissioned, fortified, inhabited, or dedicated in honour of this historical figure:
+            </p>
+            <div id="fig-monuments-grid" class="figure-associated-monuments-grid">
+              <!-- Populated dynamically -->
+            </div>
+          </article>
+
+          <!-- Verified Academic Sources -->
+          <article class="info-card">
+            <h2 class="info-card-title">📚 Historical Sources & References</h2>
+            <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 14px;">
+              Records verified against academic curricula, Archaeological Survey of India (ASI) surveys, and authenticated historical texts:
+            </p>
+            <ul class="facts-list" id="fig-sources-list">
+              <!-- Populated dynamically -->
+            </ul>
+          </article>
+        </div>
+
+        <!-- Right / Sidebar Column: Portrait & Quick Facts Dossier -->
+        <aside>
+          <!-- Portrait Card -->
+          <div class="sidebar-box" style="margin-bottom: 24px; padding: 18px; text-align: center;">
+            <div style="border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--color-border-gold); background-color: #2D0A0E; margin-bottom: 14px; box-shadow: var(--shadow-sm);">
+              <img 
+                id="fig-portrait-img" 
+                src="" 
+                alt="Historical Portrait" 
+                style="width: 100%; height: auto; max-height: 380px; object-fit: cover; display: block;"
+              />
+            </div>
+            <p id="fig-caption" style="font-size: 12px; color: var(--color-text-muted); font-style: italic;">
+              Historical depiction from preserved archives.
+            </p>
+          </div>
+
+          <!-- Quick Facts Dossier -->
+          <div class="sidebar-box">
+            <h3 class="sidebar-title">Dossier Overview</h3>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Full Name & Title</span>
+              <span class="sidebar-val" id="sb-fig-name">—</span>
+            </div>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Dynasty / House</span>
+              <span class="sidebar-val" id="sb-fig-dynasty">—</span>
+            </div>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Reign / Lifespan</span>
+              <span class="sidebar-val" id="sb-fig-era">—</span>
+            </div>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Seat of Power</span>
+              <span class="sidebar-val" id="sb-fig-capital">—</span>
+            </div>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Role in Heritage</span>
+              <span class="sidebar-val" id="sb-fig-role">—</span>
+            </div>
+
+            <div class="sidebar-item">
+              <span class="sidebar-label">Curated Status</span>
+              <span class="sidebar-val" style="color: #059669;">✓ Verified Historical Record</span>
+            </div>
+
+            <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+              <a href="explore.html" class="btn-primary" style="width: 100%; justify-content: center; font-size: 13px; padding: 10px 16px;">
+                Explore Monuments Catalogue →
+              </a>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-link" style="margin-bottom: 16px;">
+            <div class="brand-emblem">V</div>
+            <div>
+              <div class="brand-title" style="font-size: 20px;">VIRASAT</div>
+              <div class="brand-tagline">Heritage in 3D</div>
+            </div>
+          </div>
+          <p>
+            Virasat connects historical monuments with the rulers, architects, and visionaries who commissioned them, providing an authentic educational perspective on Indian history.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="explore.html">Monuments Catalogue</a></li>
+            <li><a href="monument.html?id=taj-mahal">Taj Mahal in 3D</a></li>
+            <li><a href="monument.html?id=ram-mandir">Ram Mandir in 3D</a></li>
+            <li><a href="figures.html">Historical Figures</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Virasat Project</h4>
+          <ul>
+            <li><a href="about.html">About & Academic Goals</a></li>
+            <li><a href="about.html#viva-guide">Viva Defense Guide</a></li>
+            <li><a href="about.html#architecture">System Architecture</a></li>
+            <li><a href="index.html">Welcome Page</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Virasat Heritage Project — 1st Year B.Tech Computer Science Prototype. Educational & Cultural Preservation.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page Logic Script -->
+  <script src="js/figure.js"></script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Virasat & Viva Defense Guide — 1st Year B.Tech CS Project</title>
+  <meta name="description" content="Technical documentation, architecture, technology stack, and comprehensive college viva defense guide for Virasat.">
+  
+  <!-- Google Fonts: Royal Heritage Serif + Modern Readable Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Heritage Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       NAVIGATION BAR
+       ========================================================================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-link" title="Return to Virasat Welcome Screen">
+        <div class="brand-emblem">V</div>
+        <div>
+          <div class="brand-title">VIRASAT</div>
+          <div class="brand-tagline">Heritage in 3D</div>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore.html" class="nav-link">Explore Monuments</a></li>
+          <li><a href="figures.html" class="nav-link">Historical Figures</a></li>
+          <li><a href="explore.html#categories-section" class="nav-link">Categories</a></li>
+          <li><a href="about.html" class="nav-link active">About Virasat</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       ABOUT HERO
+       ========================================================================= -->
+  <section class="explore-hero">
+    <div class="container explore-hero-content">
+      <span class="hero-badge">🎓 Academic Engineering Project — 1st Year B.Tech CS</span>
+      <h1 class="explore-hero-title">About Virasat & Viva Guide</h1>
+      <p class="explore-hero-subtitle">
+        A clean, robust full-stack heritage exploration prototype built using pure HTML5, CSS3, vanilla JavaScript, and a lightweight Node.js/Express backend.
+      </p>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MAIN CONTENT CONTAINER
+       ========================================================================= -->
+  <main class="container" style="padding-top: 40px; padding-bottom: 60px;">
+    
+    <!-- Quick Nav Anchor Links -->
+    <div style="background-color: var(--color-card-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 18px 24px; margin-bottom: 36px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; box-shadow: var(--shadow-sm);">
+      <span style="font-weight: 700; font-size: 13px; color: var(--color-maroon); text-transform: uppercase;">Quick Jump:</span>
+      <a href="#vision" class="btn-secondary" style="font-size: 12px; padding: 6px 14px;">🎯 Project Vision</a>
+      <a href="#tech-stack" class="btn-secondary" style="font-size: 12px; padding: 6px 14px;">💻 Technology Stack</a>
+      <a href="#architecture" class="btn-secondary" style="font-size: 12px; padding: 6px 14px;">🏗️ Architecture Diagram</a>
+      <a href="#viva-guide" class="btn-primary" style="font-size: 12px; padding: 6px 14px;">🎓 Viva Defense Q&A (10 Questions)</a>
+    </div>
+
+    <!-- Section 1: Vision & Mission -->
+    <section id="vision" class="info-card">
+      <h2 class="info-card-title">🎯 Project Vision & Problem Statement</h2>
+      <p>
+        India possesses one of the world's richest civilizational heritages, featuring thousands of UNESCO World Heritage sites, historic forts, rock-cut temples, and majestic royal palaces. However, standard educational textbooks and tourist websites offer static, two-dimensional reading experiences that fail to inspire modern students or capture architectural depth.
+      </p>
+      <p>
+        <strong>Virasat</strong> was conceived as a <em>digital heritage preservation platform and 3D time-travel prototype</em>. Our goal is to enable learners to explore India's sacred monuments in genuine 3D WebGL, understand the architectural marvels behind them, and connect each monument with the historical rulers and visionaries who commissioned them.
+      </p>
+      <p>
+        Built deliberately as a <strong>1st-Year B.Tech Computer Science project</strong>, Virasat avoids bloated frameworks (React, Next.js, Redux, Tailwind) in favor of deep mastery of core web fundamentals: clean semantic HTML5, responsive CSS3 with CSS variables, asynchronous JavaScript (Promises/Fetch), and RESTful client-server routing in Node.js/Express.
+      </p>
+    </section>
+
+    <!-- Section 2: Technology Stack -->
+    <section id="tech-stack" class="info-card">
+      <h2 class="info-card-title">💻 Technology Stack Breakdown</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
+        
+        <div class="step-card" style="text-align: left; padding: 24px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">🌐</div>
+          <h3 style="font-family: var(--font-serif); color: var(--color-maroon); font-size: 18px; margin-bottom: 8px;">Frontend Core</h3>
+          <p style="font-size: 13px; color: var(--color-text-muted); line-height: 1.6;">
+            <strong>HTML5:</strong> Semantic tags (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>).<br>
+            <strong>CSS3:</strong> CSS Custom Properties (Variables), Flexbox, CSS Grid, and responsive breakpoints.<br>
+            <strong>Vanilla JavaScript (ES6+):</strong> Async/await, <code>fetch()</code> API, DOM manipulation, input debouncing.
+          </p>
+        </div>
+
+        <div class="step-card" style="text-align: left; padding: 24px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">🧊</div>
+          <h3 style="font-family: var(--font-serif); color: var(--color-maroon); font-size: 18px; margin-bottom: 8px;">3D WebXR Engine</h3>
+          <p style="font-size: 13px; color: var(--color-text-muted); line-height: 1.6;">
+            <strong>Google &lt;model-viewer&gt;:</strong> High-performance WebGL/WebXR web component.<br>
+            <strong>Binary glTF (.glb):</strong> Industry-standard 3D asset format packaging geometries, PBR textures, and materials.<br>
+            <strong>Camera Orbit & AR:</strong> 360-degree interactive rotation, zoom, auto-rotation, and mobile AR quick-look.
+          </p>
+        </div>
+
+        <div class="step-card" style="text-align: left; padding: 24px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">⚙️</div>
+          <h3 style="font-family: var(--font-serif); color: var(--color-maroon); font-size: 18px; margin-bottom: 8px;">Backend & REST API</h3>
+          <p style="font-size: 13px; color: var(--color-text-muted); line-height: 1.6;">
+            <strong>Node.js:</strong> Fast asynchronous JavaScript runtime environment.<br>
+            <strong>Express.js:</strong> Lightweight server delivering static assets and REST API endpoints.<br>
+            <strong>REST Endpoints:</strong> <code>/api/monuments</code>, <code>/api/monuments/:id</code>, <code>/api/figures</code>, <code>/api/figures/:id</code>, <code>/api/categories</code>, <code>/api/visual-search</code>.
+          </p>
+        </div>
+
+        <div class="step-card" style="text-align: left; padding: 24px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">📷</div>
+          <h3 style="font-family: var(--font-serif); color: var(--color-maroon); font-size: 18px; margin-bottom: 8px;">Visual Search & Camera</h3>
+          <p style="font-size: 13px; color: var(--color-text-muted); line-height: 1.6;">
+            <strong>MediaDevices API:</strong> Live device camera feed with <code>facingMode: environment</code> for mobile phones.<br>
+            <strong>Canvas & FileReader APIs:</strong> In-memory frame capture, client-side RGB palette extraction, and drag-and-drop uploads.<br>
+            <strong>Privacy & Integrity:</strong> Immediate camera track termination (<code>track.stop()</code>) and honest architectural matching without fake AI scores.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 3: Architecture Diagram -->
+    <section id="architecture" class="info-card">
+      <h2 class="info-card-title">🏗️ System Architecture & Data Flow</h2>
+      <p style="margin-bottom: 20px;">
+        Virasat follows a decoupled <strong>Client-Server REST Architecture</strong>:
+      </p>
+
+      <div style="background-color: #2D0A0E; color: #F4E8C1; border-radius: var(--radius-md); padding: 24px; border: 1px solid var(--color-gold); font-family: monospace; font-size: 13px; line-height: 1.7; overflow-x: auto;">
++----------------------------------------------------------------------------------------------------+
+|                                       CLIENT BROWSER LAYER                                         |
+|  - Welcome Page (index.html) -> Explore Dashboard (explore.html) -> Detail (monument.html)        |
+|  - Figures Directory (figures.html) -> Historical Dossier (figure.html)                            |
+|  - Google &lt;model-viewer&gt; (WebGL 3D Orbit, Zoom & AR)                                              |
+|  - Vanilla JS Client Controllers (explore.js, monument.js, figures.js, figure.js)                  |
++----------------------------------------------------------------------------------------------------+
+                                      ▲                              │
+                         HTTP GET     │                              │ JSON Response /
+                         Fetch API    │                              │ Static Assets
+                                      │                              ▼
++----------------------------------------------------------------------------------------------------+
+|                                    EXPRESS SERVER (server.js)                                      |
+|  - express.static('public'): Serves HTML, CSS, client JS, images & 3D .glb models                  |
+|  - GET /api/monuments: Multi-field search, category & state filtering, UNESCO toggle               |
+|  - GET /api/monuments/:id: Resolves monument record + cross-links associated figure dossiers       |
+|  - GET /api/figures: Historical figure search & listing                                            |
+|  - GET /api/figures/:id: Resolves figure dossier + cross-links associated monument cards           |
+|  - GET /api/categories: Category aggregates & regional state counts                               |
++----------------------------------------------------------------------------------------------------+
+                                      ▲                              │
+                                      │                              ▼
++----------------------------------------------------------------------------------------------------+
+|                                     IN-MEMORY DATA LAYER                                           |
+|  - data/monuments.js: 20 Comprehensive Indian Monument Records (Coordinates, Styles, Facts, ASI)  |
+|  - data/figures.js: 10 Historical Emperors, Architects, Spiritual Masters & Freedom Leaders        |
+|  - public/models/: Binary glTF 3D assets (taj-mahal.glb, ram-mandir.glb)                           |
++----------------------------------------------------------------------------------------------------+
+      </div>
+    </section>
+
+    <!-- Section 4: Viva Defense Guide (10 Detailed Questions) -->
+    <section id="viva-guide" class="info-card">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+        <h2 class="info-card-title" style="margin-bottom: 0;">🎓 College Viva Defense Guide (10 Questions & Answers)</h2>
+        <span class="hero-badge">Viva-Ready</span>
+      </div>
+
+      <p style="margin-bottom: 28px; font-size: 14px; color: var(--color-text-muted);">
+        These 10 questions and answers are written in clear, confident language tailored for a 1st-year B.Tech CS engineering viva examination:
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- Q1 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q1: What is Virasat, and what real-world problem does it address?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> Virasat is an interactive 3D heritage exploration web platform. Most existing educational portals display static 2D images and dry text, making it difficult for students and tourists to appreciate architectural grandeur and cultural depth. Virasat solves this by combining interactive 3D reconstructions with historical context, architectural breakdowns, verified sources, and bidirectional links to the historical figures who built or defended these monuments.
+          </p>
+        </div>
+
+        <!-- Q2 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q2: Why did you choose Google &lt;model-viewer&gt; instead of raw Three.js or Unity WebGL?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> While Three.js is powerful, writing a full WebGL camera controller, lighting setup, shadow casting, touch gesture handling, and responsive canvas sizing requires hundreds of lines of boilerplate that can introduce memory leaks. Google <code>&lt;model-viewer&gt;</code> is a standardized, production-grade Web Component built on top of Three.js. It gives us instant support for 360° mouse/touch orbit, auto-rotation, pinch-to-zoom, AR quick-look on mobile phones, and accessible fallback states with clean HTML semantics.
+          </p>
+        </div>
+
+        <!-- Q3 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q3: How does client-server communication work in this project?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> We use the standard REST (Representational State Transfer) architectural pattern. The Node.js Express server exposes REST endpoints such as <code>GET /api/monuments</code> and <code>GET /api/figures</code>. The browser frontend uses the modern JavaScript <code>fetch()</code> API to make asynchronous HTTP requests. The server responds with structured JSON data, which the client parses and dynamically renders into HTML cards using DOM manipulation.
+          </p>
+        </div>
+
+        <!-- Q4 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q4: Why did you build Virasat in Vanilla JavaScript instead of React, Angular, or Next.js?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> In first-year computer science, the goal is to master the foundational pillars of web engineering: semantic HTML, the CSS box model, asynchronous execution (Event Loop, Promises), and the Document Object Model (DOM). Using heavy frameworks introduces build systems (Webpack/Vite), transpilers (Babel), and virtual DOM overhead that obscure how the web really works. Vanilla JS ensures lightning-fast page loads, zero build dependencies, and code that is transparent and easy to explain during a viva.
+          </p>
+        </div>
+
+        <!-- Q5 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q5: How does the search and filter mechanism work in the Explore Dashboard?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> We implemented a multi-dimensional search algorithm on the backend Express route (<code>GET /api/monuments</code>). It accepts query parameters for <code>search</code>, <code>category</code>, <code>state</code>, and <code>unesco</code>. The server converts search tokens to lowercase and checks across multiple fields: monument name, city, state, dynasty, architectural style, short description, and associated historical figures. Results are filtered and returned as a JSON array.
+          </p>
+        </div>
+
+        <!-- Q6 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q6: What is a .glb file, and how does the browser render it?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> <code>.glb</code> is the binary container format of glTF 2.0 (GL Transmission Format), commonly referred to as the "JPEG of 3D". Unlike plain OBJ or STL files, a <code>.glb</code> file packages the complete 3D scene: 3D polygon meshes, vertex normals, material shaders (PBR: Physically Based Rendering), and embedded textures into a single compact binary file. The browser's WebGL graphics pipeline loads this directly into GPU memory for real-time 60 FPS hardware-accelerated rendering.
+          </p>
+        </div>
+
+        <!-- Q7 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q7: How are monuments and historical figures linked in your database?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> We implemented a bidirectional normalized relational model in JavaScript. Each monument record in <code>data/monuments.js</code> contains an array of figure IDs (e.g., <code>historicalFigures: ["shah-jahan", "mumtaz-mahal"]</code>). Conversely, each figure record in <code>data/figures.js</code> contains an array of monument IDs (e.g., <code>associatedMonuments: ["taj-mahal", "red-fort"]</code>). In <code>server.js</code>, when a client requests a specific monument or figure by ID, the server automatically joins and resolves the linked records so the user can seamlessly navigate back and forth.
+          </p>
+        </div>
+
+        <!-- Q8 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q8: What is debouncing, and why is it used on the search input?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> Debouncing is an optimization technique that limits how often a function is executed. If a user types "Taj Mahal" rapidly, an un-debounced input would fire 9 consecutive HTTP network requests to the server. By implementing a 250ms debounce with <code>setTimeout()</code> and <code>clearTimeout()</code>, the app waits until the user pauses typing before making a single fetch request, saving network bandwidth and server compute.
+          </p>
+        </div>
+
+        <!-- Q9 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q9: How do you handle monuments that do not yet have 3D models?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> In academic prototypes, honesty is crucial. We never fake 3D models or show broken placeholders. Each monument has a boolean flag <code>hasModel</code>. For Taj Mahal and Ram Mandir, <code>hasModel</code> is <code>true</code> and the interactive <code>&lt;model-viewer&gt;</code> is rendered. For the remaining monuments, our frontend gracefully displays an honest banner: <em>"3D Digital Twin Under Photogrammetry Reconstruction"</em> while keeping all historical facts, architecture details, and academic citations fully accessible.
+          </p>
+        </div>
+
+        <!-- Q10 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q10: What are the next technical enhancements planned for Virasat?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> Planned future enhancements include:
+            <br>1. Connecting SQLite or PostgreSQL with Prisma for persistent user bookmarking and community photo submissions.
+            <br>2. Adding interactive 3D annotations (hotspots) directly on <code>&lt;model-viewer&gt;</code> so clicking a dome or minaret reveals micro-history cards.
+            <br>3. Offline caching with a Service Worker (Progressive Web App - PWA) so students in low-connectivity areas can explore heritage offline.
+          </p>
+        </div>
+
+        <!-- Q11 -->
+        <div class="arch-feature-item" style="border-left-width: 5px;">
+          <h3 class="arch-feature-title">Q11: How does the Camera and Visual Search feature work, and how do you handle privacy and permissions?</h3>
+          <p class="arch-feature-desc">
+            <strong>Answer:</strong> 
+            Visual Search uses the browser's native <code>navigator.mediaDevices.getUserMedia()</code> API with <code>facingMode: { ideal: "environment" }</code> to prioritize rear mobile cameras. To respect user privacy:
+            <br>1. The camera is never opened automatically; access is requested only when the user explicitly clicks the camera button.
+            <br>2. All camera video tracks are immediately stopped via <code>stream.getTracks().forEach(t => t.stop())</code> when the user captures a frame or closes the modal, turning off the device camera light.
+            <br>3. If permissions are denied or the device lacks a webcam, a friendly fallback immediately guides the user to the file upload tab (which supports <code>&lt;input type="file" accept="image/*" capture="environment"&gt;</code>).
+            <br>4. Photographs are processed transiently in memory using the HTML5 Canvas API (for RGB palette analysis) and are never permanently stored on the server.
+            <br>5. Catalogue candidate matching is explainable and honest: candidates are ranked by architectural category, materials, and user clues rather than fabricating black-box neural network percentages.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-link" style="margin-bottom: 16px;">
+            <div class="brand-emblem">V</div>
+            <div>
+              <div class="brand-title" style="font-size: 20px;">VIRASAT</div>
+              <div class="brand-tagline">Heritage in 3D</div>
+            </div>
+          </div>
+          <p>
+            Virasat is a searchable Indian heritage discovery platform and 3D time-travel prototype built with pure HTML5, CSS3, JavaScript, and Node.js/Express.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="explore.html">Monuments Catalogue</a></li>
+            <li><a href="monument.html?id=taj-mahal">Taj Mahal in 3D</a></li>
+            <li><a href="monument.html?id=ram-mandir">Ram Mandir in 3D</a></li>
+            <li><a href="figures.html">Historical Figures</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Virasat Project</h4>
+          <ul>
+            <li><a href="about.html">About & Academic Goals</a></li>
+            <li><a href="about.html#viva-guide">Viva Defense Guide</a></li>
+            <li><a href="about.html#architecture">System Architecture</a></li>
+            <li><a href="index.html">Welcome Page</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Virasat Heritage Project — 1st Year B.Tech Computer Science Prototype. Educational & Cultural Preservation.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
