@@ -233,5 +233,26 @@ export const figures = [
     sources: [
       { title: "Tamil Nadu Heritage Board & ASI", url: "https://asi.nic.in/" }
     ]
+  },
+
+  {
+    id: "goswami-tulsidas",
+    name: "Goswami Tulsidas",
+    title: "Bhakti Poet-Saint & Author of Ramcharitmanas",
+    period: "Medieval Bhakti Movement (16th Century CE)",
+    lifespan: "1532 – 1623 CE",
+    thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tulsidas_print.jpg/330px-Tulsidas_print.jpg",
+    biography: "Goswami Tulsidas was a celebrated Hindu Vaishnava poet, philosopher, and saint who spent formative years in Ayodhya and Varanasi. He composed the monumental epic Ramcharitmanas in the vernacular Awadhi language, making the life, values, and narrative of Shri Ram accessible to all strata of society across the subcontinent.",
+    majorAchievements: [
+      "Composed the epic Ramcharitmanas in Awadhi, forever enriching North Indian literature and vernacular spirituality.",
+      "Composed the revered 40-verse hymn Hanuman Chalisa and Vinaya Patrika.",
+      "Initiated the traditional Ramlila folk dramatic performances, inscribed on UNESCO's Intangible Cultural Heritage list."
+    ],
+    historicalSignificance: "By translating the Ramayana tradition into the Awadhi regional dialect, Tulsidas preserved India's civilizational ethos and permanently established Ayodhya as a prime cultural focal point.",
+    associatedMonuments: ["ram-mandir"],
+    sources: [
+      { title: "Encyclopaedia Britannica — Tulsidas", url: "https://www.britannica.com/biography/Tulsidas" }
+    ]
   }
 ];
+
